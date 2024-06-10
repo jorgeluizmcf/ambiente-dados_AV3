@@ -16,7 +16,9 @@ services:
       - db
 
   db:
-    image: mysql:5.7
+    build:
+      context: .
+      dockerfile: Dockerfile.mysql
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: 12345678
