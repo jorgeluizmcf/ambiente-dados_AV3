@@ -3,7 +3,7 @@ from flask import Flask, make_response, jsonify, request
 
 # Conexão com o banco de dados
 mydb = mysql.connector.connect(
-    host='localhost',
+    host='db',
     user='root',
     password='12345678',
     database='steam',
@@ -108,4 +108,4 @@ def update_usuario(id):
 
 # Rodar o aplicativo Flask
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000)
