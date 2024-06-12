@@ -102,3 +102,5 @@ def update_usuario(id):
 # Rodar o aplicativo Flask
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
+
+#teste
