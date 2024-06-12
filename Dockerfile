@@ -8,14 +8,17 @@ WORKDIR /app
 COPY requirements.txt requirements.txt
 COPY app.py app.py
 
+# Copy wait-for-it.sh script
+COPY wait-for-it.sh wait-for-it.sh
+
 # Install the application dependencies
 RUN pip install -r requirements.txt
+
+# Make wait-for-it.sh executable
+RUN chmod +x wait-for-it.sh
 
 # Expose the port that the Flask application runs on
 EXPOSE 5000
 
 # Command to run the application
-CMD ["python", "app.py"]
-
-#comando para executar
-#sudo docker run -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=12345678 -e MYSQL_DATABASE=steam -e MYSQL_USER=root -e MYSQL_PASSWORD=12345678
+CMD ["./wait-for-it.sh", "db:3306", "--", "python", "app.py"]

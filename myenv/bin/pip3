@@ -1,5 +1,5 @@
 #!/bin/sh
-'''exec' "/home/jorge/Área de trabalho/Projeto BD AV3/myenv/bin/python3" "$0" "$@"
+'''exec' "/home/jorge/Área de Trabalho/av3/ambiente-dados_AV3/myenv/bin/python3" "$0" "$@"
 ' '''
 # -*- coding: utf-8 -*-
 import re

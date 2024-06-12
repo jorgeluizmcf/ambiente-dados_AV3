@@ -1,25 +1,30 @@
 version: '3.8'
 
 services:
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "5000:5000"
-    environment:
-      MYSQL_HOST: db
-      MYSQL_USER: root
-      MYSQL_PASSWORD: 12345678
-      MYSQL_DB: steam
-    depends_on:
-      - db
-
   db:
     build:
       context: .
       dockerfile: Dockerfile.mysql
-    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: 12345678
       MYSQL_DATABASE: steam
+      MYSQL_USER: mysql
+      MYSQL_PASSWORD: 12345678
+    ports:
+      - "3306:3306"
+    restart: always
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    environment:
+      MYSQL_HOST: db
+      MYSQL_USER: mysql
+      MYSQL_PASSWORD: 12345678
+      MYSQL_DB: steam
+    ports:
+      - "5000:5000"
+    restart: always

@@ -1,12 +1,13 @@
 import mysql.connector
 from flask import Flask, make_response, jsonify, request
+import os
 
 # Conexão com o banco de dados
 mydb = mysql.connector.connect(
-    host='db',
-    user='root',
-    password='12345678',
-    database='steam',
+    host=os.getenv('MYSQL_HOST', 'localhost'),
+    user=os.getenv('MYSQL_USER', 'mysql'),
+    password=os.getenv('MYSQL_PASSWORD', '12345678'),
+    database=os.getenv('MYSQL_DB', 'steam'),
 )
 
 # Inicialização do aplicativo Flask
@@ -35,7 +36,6 @@ def get_biblioteca():
     cursor.close()
     return make_response(jsonify(biblioteca), 200)
 
-
 @app.route('/compra', methods=['GET'])
 def get_compra():
     cursor = mydb.cursor(dictionary=True)
@@ -43,7 +43,6 @@ def get_compra():
     compra = cursor.fetchall()
     cursor.close()
     return make_response(jsonify(compra), 200)
-
 
 @app.route('/desenvolvedora', methods=['GET'])
 def get_desenvolvedora():
@@ -53,7 +52,6 @@ def get_desenvolvedora():
     cursor.close()
     return make_response(jsonify(desenvolvedora), 200)
 
-
 @app.route('/itens_compra', methods=['GET'])
 def get_itens_compra():
     cursor = mydb.cursor(dictionary=True)
@@ -61,7 +59,6 @@ def get_itens_compra():
     itens_compra = cursor.fetchall()
     cursor.close()
     return make_response(jsonify(itens_compra), 200)
-
 
 @app.route('/publicadora', methods=['GET'])
 def get_publicadora():
@@ -71,7 +68,6 @@ def get_publicadora():
     cursor.close()
     return make_response(jsonify(publicadora), 200)
 
-
 @app.route('/usuario', methods=['GET'])
 def get_usuario():
     cursor = mydb.cursor(dictionary=True)
@@ -80,9 +76,7 @@ def get_usuario():
     cursor.close()
     return make_response(jsonify(usuario), 200)
 
-
 # Rotas para realizar UPDATE no banco de dados
-
 @app.route('/usuario_update/<int:id>', methods=['PUT'])
 def update_usuario(id):
     data = request.get_json()
@@ -104,7 +98,6 @@ def update_usuario(id):
         return make_response(jsonify({"message": "Usuário não encontrado!"}), 404)
     
     return make_response(jsonify({"message": "Usuário atualizado com sucesso!"}), 200)
-
 
 # Rodar o aplicativo Flask
 if __name__ == '__main__':
