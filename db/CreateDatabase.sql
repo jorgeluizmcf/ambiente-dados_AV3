@@ -1,18 +1,8 @@
--- Criando e conectando no banco de dados
-CREATE DATABASE IF NOT EXISTS steam;
+DROP SCHEMA IF EXISTS steam;
+
+CREATE SCHEMA steam;
 
 USE steam;
-
--- Tabela: usuario
-CREATE TABLE usuario (
-    id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    username VARCHAR(55) NOT NULL,
-    email VARCHAR(55) NOT NULL,
-    senha VARCHAR(55) NOT NULL,
-    saldo DECIMAL(10,2),
-    data_nasc DATE NOT NULL,
-    data_criacao DATE NOT NULL
-);
 
 -- Tabela: desenvolvedora
 CREATE TABLE desenvolvedora (
@@ -38,6 +28,17 @@ CREATE TABLE Loja (
     original_price DECIMAL(4,2) NOT NULL,
     FOREIGN KEY (developer_id) REFERENCES desenvolvedora(id),
     FOREIGN KEY (publisher_id) REFERENCES publicadora(id)
+);
+
+-- Tabela: usuario
+CREATE TABLE usuario (
+    id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    username VARCHAR(55) NOT NULL,
+    email VARCHAR(55) NOT NULL,
+    senha VARCHAR(55) NOT NULL,
+    saldo DECIMAL(10,2),
+    data_nasc DATE NOT NULL,
+    data_criacao DATE NOT NULL
 );
 
 -- Tabela: biblioteca
@@ -67,8 +68,3 @@ CREATE TABLE itens_compra (
     FOREIGN KEY (app_id) REFERENCES Loja(app_id),
     FOREIGN KEY (compra_id) REFERENCES compra(id)
 );
-
--- Insert teste
-
-INSERT INTO usuario (username, email, senha, saldo, data_nasc, data_criacao)
-VALUES ('jorge teste', 'teste@email.com', 'teste', 10000, '2000-01-01', NOW());
