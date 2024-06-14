@@ -21,4 +21,4 @@ RUN chmod +x wait-for-it.sh
 EXPOSE 5000
 
 # Command to run the application
-CMD ["./wait-for-it.sh", "db:3306", "--", "python", "app.py"]
+CMD ["./wait-for-it.sh", "ambiente-dados-bd.jorgeluizmcf-dev.svc.cluster.local:3306", "--", "python", "app.py"]
